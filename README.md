@@ -1,4 +1,4 @@
-# Breezy BillIt 🧾
+# Invoice Bhejo 🧾
 
 A modern, streamlined invoice creation application built with React, TypeScript, and integrated with automation workflows for seamless invoice processing and delivery.
 
