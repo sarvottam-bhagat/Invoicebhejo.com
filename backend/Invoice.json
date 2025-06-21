@@ -1,0 +1,432 @@
+{
+  "name": "My workflow 5",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "77882463-a94e-4ef2-a0eb-317da9858228",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        -280,
+        -40
+      ],
+      "id": "7842aa9c-9f11-4b75-b537-63cf4722f313",
+      "name": "Webhook",
+      "webhookId": "77882463-a94e-4ef2-a0eb-317da9858228"
+    },
+    {
+      "parameters": {
+        "html": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n  <meta charset=\"UTF-8\">\n  <meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">\n  <title>Invoice</title>\n  <style>\n    body {\n      font-family: 'Helvetica Neue', sans-serif;\n      background-color: #f5f7fa;\n      margin: 0;\n      padding: 40px 0;\n    }\n    .invoice-box {\n      background: #ffffff;\n      max-width: 700px;\n      margin: auto;\n      padding: 40px;\n      border-radius: 12px;\n      box-shadow: 0 4px 25px rgba(0, 0, 0, 0.1);\n      color: #333;\n    }\n    .header {\n      background-color: #2c3e50;\n      color: white;\n      padding: 20px 30px;\n      border-radius: 8px 8px 0 0;\n      display: flex;\n      justify-content: space-between;\n      align-items: center;\n    }\n    .header h1 {\n      margin: 0;\n      font-size: 24px;\n    }\n    .header .invoice-number {\n      font-size: 14px;\n      color: #bdc3c7;\n    }\n    .content {\n      padding: 30px;\n    }\n    .row {\n      display: flex;\n      justify-content: space-between;\n      margin-bottom: 20px;\n      flex-wrap: wrap;\n    }\n    .column {\n      width: 48%;\n    }\n    .label {\n      font-weight: bold;\n      color: #555;\n      margin-bottom: 4px;\n    }\n    .value {\n      margin-bottom: 16px;\n      font-size: 16px;\n    }\n    .amount-box {\n      background-color: #f0f4f8;\n      padding: 20px;\n      border-radius: 8px;\n      text-align: center;\n      margin-top: 30px;\n    }\n    .amount-box span {\n      font-size: 18px;\n      font-weight: 600;\n      color: #555;\n      display: block;\n      margin-bottom: 8px;\n    }\n    .amount-box h2 {\n      margin: 0;\n      font-size: 28px;\n      color: #2c3e50;\n    }\n    .footer {\n      text-align: center;\n      font-size: 13px;\n      color: #aaa;\n      margin-top: 40px;\n    }\n    @media(max-width: 600px) {\n      .column {\n        width: 100%;\n      }\n    }\n  </style>\n</head>\n<body>\n  <div class=\"invoice-box\">\n    <div class=\"header\">\n      <h1>Invoice</h1>\n      <div class=\"invoice-number\">#{{ $json.body.invoiceNumber }}</div>\n    </div>\n\n    <div class=\"content\">\n      <div class=\"row\">\n        <div class=\"column\">\n          <div class=\"label\">Date</div>\n          <div class=\"value\">{{ $json.body.date }}</div>\n\n          <div class=\"label\">Sent At</div>\n          <div class=\"value\">{{ $json.body.timestamp }}</div>\n        </div>\n        <div class=\"column\">\n          <div class=\"label\">Customer</div>\n          <div class=\"value\">{{ $json.body.customerName }}</div>\n\n          <div class=\"label\">Email</div>\n          <div class=\"value\">{{ $json.body.customerEmail }}</div>\n        </div>\n      </div>\n\n      <div class=\"label\">Description</div>\n      <div class=\"value\">{{ $json.body.description }}</div>\n\n      <div class=\"amount-box\">\n        <span>Amount</span>\n        <h2>$ {{ $json.body.amount }}</h2>\n      </div>\n    </div>\n\n    <div class=\"footer\">\n      Thank you for your business.\n    </div>\n  </div>\n</body>\n</html>\n"
+      },
+      "type": "n8n-nodes-base.html",
+      "typeVersion": 1.2,
+      "position": [
+        -60,
+        -40
+      ],
+      "id": "5e04a955-34d2-4f8b-986e-1c9a299d4b8e",
+      "name": "HTML"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.pdfshift.io/v3/convert/pdf",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "X-API-Key",
+              "value": "sk_dummy_pdfshift_api_key_placeholder_12345"
+            },
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            }
+          ]
+        },
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "source",
+              "value": "={{ $json.html }}"
+            },
+            {
+              "name": "landscape",
+              "value": "false"
+            },
+            {
+              "name": "use_print",
+              "value": "false"
+            }
+          ]
+        },
+        "options": {
+          "response": {
+            "response": {
+              "responseFormat": "file",
+              "outputPropertyName": "wikipedia.pdf"
+            }
+          }
+        }
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        160,
+        -40
+      ],
+      "id": "311dc522-912e-4999-9cb4-a497e6cf5d34",
+      "name": "HTTP Request"
+    },
+    {
+      "parameters": {
+        "inputDataFieldName": "wikipedia.pdf",
+        "name": "=Invoice {{ $('Webhook').item.json.body.invoiceNumber }}",
+        "driveId": {
+          "__rl": true,
+          "value": "My Drive",
+          "mode": "list",
+          "cachedResultName": "My Drive",
+          "cachedResultUrl": "https://drive.google.com/drive/my-drive"
+        },
+        "folderId": {
+          "__rl": true,
+          "mode": "list",
+          "value": "root",
+          "cachedResultName": "/ (Root folder)"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleDrive",
+      "typeVersion": 3,
+      "position": [
+        380,
+        -40
+      ],
+      "id": "cf895ddf-edbc-48c8-a038-2b30ad07a2ca",
+      "name": "Google Drive",
+      "credentials": {
+        "googleDriveOAuth2Api": {
+          "id": "DUMMY_GOOGLE_DRIVE_ID_1",
+          "name": "Google Drive account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "sendTo": "={{ $('Webhook').item.json.body.customerEmail }}",
+        "subject": "Invoice",
+        "emailType": "text",
+        "message": "=Hello  {{ $('Webhook').item.json.body.customerName }}\n\nThank you for trusting us with {{ $('Webhook').item.json.body.description }} \nThis is your invoice for service .\n{{ $('Google Drive').item.json.webViewLink }}",
+        "options": {
+          "appendAttribution": false
+        }
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.1,
+      "position": [
+        820,
+        -40
+      ],
+      "id": "2c2a1083-99e6-484e-acb9-6cbf31d5e687",
+      "name": "Gmail",
+      "webhookId": "0fbbcb9d-0222-492a-8f7f-bdabc6bde83b",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "DUMMY_GMAIL_CREDENTIAL_ID",
+          "name": "Gmail account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "share",
+        "fileId": {
+          "__rl": true,
+          "value": "={{ $json.id }}",
+          "mode": "id"
+        },
+        "permissionsUi": {
+          "permissionsValues": {
+            "role": "reader",
+            "type": "anyone"
+          }
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleDrive",
+      "typeVersion": 3,
+      "position": [
+        600,
+        -40
+      ],
+      "id": "b6a31c48-f374-46db-b938-a95d2c816c5b",
+      "name": "Google Drive1",
+      "credentials": {
+        "googleDriveOAuth2Api": {
+          "id": "DUMMY_GOOGLE_DRIVE_ID_1",
+          "name": "Google Drive account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=You are an automation assistant that receives invoice data from a webhook.\n\nYour task is to log each invoice entry into a Google Sheet.\n\nThe Google Sheet has the following columns (in order):\n\n1. invoiceNumber {{ $('Webhook').item.json.body.invoiceNumber }} \n2. customerName  {{ $('Webhook').item.json.body.customerName }}\n3. customerEmail {{ $('Webhook').item.json.body.customerEmail }} \n4. amount {{ $('Webhook').item.json.body.amount }} \n5. date {{ $('Webhook').item.json.body.date }} \n6. description {{ $('Webhook').item.json.body.description }} \n7. timestamp {{ $('Webhook').item.json.body.timestamp }}\n\nWhenever new invoice data arrives from the webhook, append a new row to the sheet with the respective values.\n\nEnsure no existing rows are overwritten. Each entry must be logged as a new row.\n\nExample entry:\n| invoiceNumber | customerName | customerEmail       | amount | date       | description        | timestamp          |\n|---------------|--------------|---------------------|--------|------------|--------------------|---------------------|\n| INV-00123     | Alice Smith  | alice@email.com     | 250.00 | 2025-06-20 | Website Development| 2025-06-20T10:45:00Z |\n\nUse data exactly as received from the webhook.\n\nRespond with confirmation after successfully updating the sheet.\n",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 2,
+      "position": [
+        -20,
+        160
+      ],
+      "id": "452c319b-0546-4984-9327-1e13800c11a0",
+      "name": "AI Agent"
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "value": "gpt-4o",
+          "mode": "list",
+          "cachedResultName": "gpt-4o"
+        },
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.2,
+      "position": [
+        -40,
+        380
+      ],
+      "id": "5b383edd-4b4f-4441-8ee5-7c06055147ff",
+      "name": "OpenAI Chat Model",
+      "credentials": {
+        "openAiApi": {
+          "id": "DUMMY_OPENAI_CREDENTIAL_ID",
+          "name": "OpenAi account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "DUMMY_GOOGLE_SHEETS_DOCUMENT_ID",
+          "mode": "list",
+          "cachedResultName": "Invoice_Expense",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/DUMMY_GOOGLE_SHEETS_DOCUMENT_ID/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Sheet1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/DUMMY_GOOGLE_SHEETS_DOCUMENT_ID/edit#gid=0"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "invoiceNumber": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('invoiceNumber', ``, 'string') }}",
+            "customerName": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('customerName', ``, 'string') }}",
+            "customerEmail": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('customerEmail', ``, 'string') }}",
+            "amount": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('amount', ``, 'string') }}",
+            "date": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('date', ``, 'string') }}",
+            "description": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('description', ``, 'string') }}",
+            "timestamp": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('timestamp', ``, 'string') }}"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "invoiceNumber",
+              "displayName": "invoiceNumber",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "customerName",
+              "displayName": "customerName",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "customerEmail",
+              "displayName": "customerEmail",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "amount",
+              "displayName": "amount",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "date",
+              "displayName": "date",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "description",
+              "displayName": "description",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "timestamp",
+              "displayName": "timestamp",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheetsTool",
+      "typeVersion": 4.6,
+      "position": [
+        280,
+        340
+      ],
+      "id": "f5ee66e0-e05a-416e-a151-1dfe2c03bc23",
+      "name": "Google Sheets",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "DUMMY_GOOGLE_SHEETS_CRED_ID",
+          "name": "Google Sheets account"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "HTML",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTML": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTTP Request": {
+      "main": [
+        [
+          {
+            "node": "Google Drive",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Drive": {
+      "main": [
+        [
+          {
+            "node": "Google Drive1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Drive1": {
+      "main": [
+        [
+          {
+            "node": "Gmail",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Gmail": {
+      "main": [
+        []
+      ]
+    },
+    "OpenAI Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Sheets": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "d7b6736e-8e17-4f02-a9c4-06efa403e49f",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "dummy_instance_id_placeholder_12345"
+  },
+  "id": "DUMMY_WORKFLOW_ID_12345",
+  "tags": []
+}
