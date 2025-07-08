@@ -19,7 +19,7 @@
 
 .infinite-scroll-content {
   display: flex;
-  animation: scroll-horizontal 20s linear infinite;
+  animation: scroll-horizontal 12s linear infinite;
   gap: 1rem;
   align-items: center;
   flex-shrink: 0;

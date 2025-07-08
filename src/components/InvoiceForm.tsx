@@ -108,7 +108,7 @@ export function InvoiceForm() {
     <div
       className="min-h-screen squid-game-bg flex flex-col"
       style={{
-        backgroundImage: "url('/Images/download (10).jpeg')",
+        backgroundImage: "url('/download (10).jpeg')",
       }}
     >
       <div className="flex-1 flex items-center justify-center p-4" style={{
@@ -146,7 +146,7 @@ export function InvoiceForm() {
               {/* Additional Images for decoration */}
               <div className="absolute bottom-4 right-4 w-20 h-20 opacity-30">
                 <img 
-                  src="/Images/Round 6.jpeg" 
+                  src="/Round 6.jpeg" 
                   alt="Round 6" 
                   className="w-full h-full object-cover rounded-full border-2 border-red-600"
                 />
@@ -319,26 +319,26 @@ export function InvoiceForm() {
       <div className="bg-black/90 py-12 border-t-2 border-red-600">
         <div className="infinite-scroll">
           <div className="infinite-scroll-content">
-            <img src="/Images/ahiretlik babeyle ben.jpeg" alt="Squid Game Character" />
-            <img src="/Images/download (10).jpeg" alt="Squid Game Scene" />
-            <img src="/Images/Round 6.jpeg" alt="Round 6" />
-            <img src="/Images/squid game 2025 trending wallpaper.jpeg" alt="Squid Game Wallpaper" />
-            <img src="/Images/squid game s2 player 222 kim jun-hee __ jo yuri coquette icon 🎀.jpeg" alt="Player 222" />
-            <img src="/Images/The Salesman Squid Game S2.jpeg" alt="The Salesman" />
+            <img src="/ahiretlik babeyle ben.jpeg" alt="Squid Game Character" />
+            <img src="/download (10).jpeg" alt="Squid Game Scene" />
+            <img src="/Round 6.jpeg" alt="Round 6" />
+            <img src="/squid game 2025 trending wallpaper.jpeg" alt="Squid Game Wallpaper" />
+            <img src="/squid game s2 player 222 kim jun-hee __ jo yuri coquette icon 🎀.jpeg" alt="Player 222" />
+            <img src="/The Salesman Squid Game S2.jpeg" alt="The Salesman" />
             {/* Duplicate for seamless loop */}
-            <img src="/Images/ahiretlik babeyle ben.jpeg" alt="Squid Game Character" />
-            <img src="/Images/download (10).jpeg" alt="Squid Game Scene" />
-            <img src="/Images/Round 6.jpeg" alt="Round 6" />
-            <img src="/Images/squid game 2025 trending wallpaper.jpeg" alt="Squid Game Wallpaper" />
-            <img src="/Images/squid game s2 player 222 kim jun-hee __ jo yuri coquette icon 🎀.jpeg" alt="Player 222" />
-            <img src="/Images/The Salesman Squid Game S2.jpeg" alt="The Salesman" />
+            <img src="/ahiretlik babeyle ben.jpeg" alt="Squid Game Character" />
+            <img src="/download (10).jpeg" alt="Squid Game Scene" />
+            <img src="/Round 6.jpeg" alt="Round 6" />
+            <img src="/squid game 2025 trending wallpaper.jpeg" alt="Squid Game Wallpaper" />
+            <img src="/squid game s2 player 222 kim jun-hee __ jo yuri coquette icon 🎀.jpeg" alt="Player 222" />
+            <img src="/The Salesman Squid Game S2.jpeg" alt="The Salesman" />
             {/* Additional duplicates for smoother animation */}
-            <img src="/Images/ahiretlik babeyle ben.jpeg" alt="Squid Game Character" />
-            <img src="/Images/download (10).jpeg" alt="Squid Game Scene" />
-            <img src="/Images/Round 6.jpeg" alt="Round 6" />
-            <img src="/Images/squid game 2025 trending wallpaper.jpeg" alt="Squid Game Wallpaper" />
-            <img src="/Images/squid game s2 player 222 kim jun-hee __ jo yuri coquette icon 🎀.jpeg" alt="Player 222" />
-            <img src="/Images/The Salesman Squid Game S2.jpeg" alt="The Salesman" />
+            <img src="/ahiretlik babeyle ben.jpeg" alt="Squid Game Character" />
+            <img src="/download (10).jpeg" alt="Squid Game Scene" />
+            <img src="/Round 6.jpeg" alt="Round 6" />
+            <img src="/squid game 2025 trending wallpaper.jpeg" alt="Squid Game Wallpaper" />
+            <img src="/squid game s2 player 222 kim jun-hee __ jo yuri coquette icon 🎀.jpeg" alt="Player 222" />
+            <img src="/The Salesman Squid Game S2.jpeg" alt="The Salesman" />
           </div>
         </div>
       </div>
