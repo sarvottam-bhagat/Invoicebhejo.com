@@ -1,3 +1,6 @@
+/* Import Squid Game theme */
+@import './squid-game.css';
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
